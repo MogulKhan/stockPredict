@@ -13,3 +13,28 @@ CREATE TABLE `stockprediction`.`stock_basic_info`  (
   `list_date` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '上市日期',
   PRIMARY KEY (`exchid`, `stock_code`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+
+
+CREATE TABLE `stockprediction`.`stock_daily_info`  (
+  `trd_date` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `exchid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `stock_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `ts_stock_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'TS代码',
+  `open` decimal(20, 0) NULL DEFAULT NULL COMMENT '开盘价',
+  `high` decimal(20, 0) NULL DEFAULT NULL COMMENT '最高价',
+  `close` decimal(20, 0) NULL DEFAULT NULL COMMENT '收盘价',
+  `low` decimal(20, 0) NULL DEFAULT NULL COMMENT '最低价',
+  `vol` decimal(20, 0) NULL DEFAULT NULL COMMENT '成交量 （手）',
+  `amount` decimal(20, 0) NULL DEFAULT NULL COMMENT '成交额 （千元）',
+  `price_change` decimal(20, 0) NULL DEFAULT NULL COMMENT '价格变动',
+  `p_change` decimal(20, 0) NULL DEFAULT NULL COMMENT '涨跌幅',
+  `ma5` decimal(20, 0) NULL DEFAULT NULL COMMENT '5日均价',
+  `v_ma5` decimal(20, 0) NULL DEFAULT NULL COMMENT '5日均量',
+  `ma10` decimal(20, 0) NULL DEFAULT NULL COMMENT '10日均价',
+  `v_ma10` decimal(20, 0) NULL DEFAULT NULL COMMENT '10日均量',
+  `ma20` decimal(20, 0) NULL DEFAULT NULL COMMENT '20日均价',
+  `v_ma20` decimal(20, 0) NULL DEFAULT NULL COMMENT '20日均量',
+  `turn_over` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '换手率',
+  PRIMARY KEY (`trd_date`, `exchid`, `stock_code`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;

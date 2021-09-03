@@ -1,5 +1,5 @@
 import tushare as ts
-
+import pymysql
 
 def fetch_stock_basic_info():
     ts.set_token('1fef74d4a1bc37072b480af3f8b51514abfc38855ac4c5848c4e99d3')
@@ -12,16 +12,21 @@ def fetch_stock_basic_info():
             'industry', 'list_date']]
 
     # 插入数据
+    # 获取游标
+    mydb = pymysql.connect(host='127.0.0.1', user='root', password='123456', database='stockprediction', charset='utf8')
+    cursor = mydb.cursor()
+
+    # 插入数据
     sql = "INSERT INTO stockprediction.stock_basic_info(exchid, stock_code, ts_stock_code, stock_type, stock_name, stock_full_name, stcok_en_name, stock_spell_name, curr_type, area, industry, list_date) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
     try:
         for i in range(0, len(data)):
-            str = '\"' # 用" 因为英文那么有'
-            for j in range(0, data.shape[1]-1):
-                str = str + data.iloc[i][data.columns[j]]+'\",\"'
-            str = str + data.iloc[i][data.shape[1]-1] + '\"'
+            str = '\"'  # 用" 因为英文那么有'
+            for j in range(0, data.shape[1] - 1):
+                str = str + data.iloc[i][data.columns[j]] + '\",\"'
+            str = str + data.iloc[i][data.shape[1] - 1] + '\"'
             # 因为用%时，必须时一个元组，所以这里要把str转换成元组
             # values = (str,) # 这个不行，结果是只有str的元组
-            val = eval(str) # 使用这个可以换成元组
+            val = eval(str)  # 使用这个可以换成元组
             # print(val)
             cursor.execute(sql, val)
         mydb.commit()
@@ -29,3 +34,13 @@ def fetch_stock_basic_info():
     except Exception as e:
         print(e)
         mydb.rollback()
+
+
+df = pro.daily(trade_date='20210902')
+
+ts.get_hist_data('688001') #一次性获取全部日k线数据
+
+df = ts.pro_bar(ts_code='688001.SH',  ma=[5, 20, 50])
+
+df = ts.pro_bar(ts_code='000001.SZ', start_date='20180101', end_date='20181011', factors=['tor', 'vr'])
+df
