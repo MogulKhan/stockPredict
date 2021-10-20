@@ -50,3 +50,4 @@ for stock in stock_codes.ts_code:
     #  sql = " INSERT INTO stockprediction.stock_daily_info(trd_date,  ts_stock_code, open) VALUES ({},  '{}', {})".format(aa,bb,cc)
     # 3、%d，%s,代表数字和字符串的占位符,但是如果这个值中有‘.’,例如'688001.sh',pymysql不识别，需要将整个作为一个字符串，就需要变成'%s'，如下
     #   sql = " INSERT INTO stockprediction.stock_daily_info(trd_date,  ts_stock_code, open) VALUES (%s,  '%s', %d)"%(aa,bb,cc)
+    # 4、以上还是解决不了，就用sql = '''insert into aaa() values (%s,'%s',"%s")''',有单引号的就用”“括起来就可以！推荐！
