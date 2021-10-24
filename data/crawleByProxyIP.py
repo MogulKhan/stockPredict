@@ -13,6 +13,7 @@ def getHtml(page_url):
     # ....
     # retry_count = 5
     proxy = get_proxy().get("proxy")
+    # proxy = '60.216.20.211:8001'
 
     while 1:
         try:
