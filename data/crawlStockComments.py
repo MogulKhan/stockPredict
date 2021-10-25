@@ -37,7 +37,7 @@ def data_to_csv(filename, res):
     with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(('阅读', '评论', '标题', '链接', '作者', '最后更新'))
-        writer.writerows(res)
+        writer.writerows(res) # res是列表才可以这么写，dataframe不可以
 
 
 def data_to_txt(filename, res):
